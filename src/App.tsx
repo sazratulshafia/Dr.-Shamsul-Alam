@@ -1,13 +1,5 @@
-/**
- * DR. SHAMSUL ALAM – PAIN MEDICINE SPECIALIST
- * Premium Personal-Brand Medical Website
- * 
- * Visual Direction: Light Premium International Medical Aesthetic
- * Warm White (#FAFAF7), Soft Ivory (#F3F5F2), Pure White (#FFFFFF),
- * Deep Charcoal (#18212B), Slate Gray (#5E6872), Soft Medical Teal (#3D9C98)
- */
-
 import React, { useState } from 'react';
+import { LanguageProvider } from './context/LanguageContext';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { TrustSection } from './components/TrustSection';
@@ -24,12 +16,14 @@ import { Footer } from './components/Footer';
 import { MobileBottomBar } from './components/MobileBottomBar';
 import { AppointmentModal } from './components/AppointmentModal';
 import { WordPressThemeModal } from './components/WordPressThemeModal';
+import { HtmlBlocksModal } from './components/HtmlBlocksModal';
 
 export default function App() {
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [bookingChamber, setBookingChamber] = useState<string | undefined>(undefined);
   const [bookingReason, setBookingReason] = useState<string | undefined>(undefined);
   const [wpModalOpen, setWpModalOpen] = useState(false);
+  const [htmlBlocksModalOpen, setHtmlBlocksModalOpen] = useState(false);
 
   const handleOpenBooking = (chamber?: string, reason?: string) => {
     setBookingChamber(chamber);
@@ -49,80 +43,77 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAF7] text-[#18212B] flex flex-col selection:bg-[#3D9C98]/20 selection:text-[#18212B]">
-      
-      {/* Top Navigation Bar */}
-      <Navbar
-        onOpenBooking={() => handleOpenBooking()}
-        onOpenWordPressTheme={() => setWpModalOpen(true)}
-      />
-
-      {/* Main Content Sections with Subtle Elegant Transitions:
-          Warm White -> White -> Soft Ivory -> White -> Pale Blue -> White */}
-      <main className="flex-1">
-        {/* 05. Hero Experience (Warm White / Ivory with soft atmospheric gradient) */}
-        <HeroSection
+    <LanguageProvider>
+      <div className="min-h-screen bg-[#FAFAF7] text-[#18212B] flex flex-col selection:bg-[#3D9C98]/20 selection:text-[#18212B]">
+        
+        {/* Top Navigation Bar with EN / BN Toggle Switcher */}
+        <Navbar
           onOpenBooking={() => handleOpenBooking()}
-          onContactDoctor={handleContactDoctor}
+          onOpenWordPressTheme={() => setWpModalOpen(true)}
+          onOpenHtmlBlocks={() => setHtmlBlocksModalOpen(true)}
         />
 
-        {/* 08. Trust & Credibility Section (Pure White) */}
-        <TrustSection />
+        {/* Main Content Sections */}
+        <main className="flex-1">
+          <HeroSection
+            onOpenBooking={() => handleOpenBooking()}
+            onContactDoctor={handleContactDoctor}
+          />
 
-        {/* 09 & 13. About Doctor & Professional Journey (Warm White & Clean Light Timeline) */}
-        <AboutDoctorSection />
+          <TrustSection />
 
-        {/* 10. Expertise ("Understanding Your Pain" - Soft Ivory Background with White Cards) */}
-        <ExpertiseSection onOpenBooking={handleOpenBooking} />
+          <AboutDoctorSection />
 
-        {/* 12. Featured Treatment Experience (Pure White with Light Precision Guidance Visual) */}
-        <FeaturedTreatmentSection onOpenBooking={() => handleOpenBooking()} />
+          <ExpertiseSection onOpenBooking={handleOpenBooking} />
 
-        {/* 11. Treatments ("Personalized Pain Management" - Pure White with Large Editorial Blocks) */}
-        <TreatmentsSection onOpenBooking={handleOpenBooking} />
+          <FeaturedTreatmentSection onOpenBooking={() => handleOpenBooking()} />
 
-        {/* 14. Chambers (Dhanmondi & Panthapath - Soft Ivory / Pale Blue) */}
-        <ChambersSection onOpenBooking={handleOpenBooking} />
+          <TreatmentsSection onOpenBooking={handleOpenBooking} />
 
-        {/* 17 & 18. Patient Education & FAQ (Pure White with Clean Accordion) */}
-        <PatientEducationSection />
+          <ChambersSection onOpenBooking={handleOpenBooking} />
 
-        {/* 16. Patient Testimonials (Warm White with Editorial Layout) */}
-        <TestimonialsSection />
+          <PatientEducationSection />
 
-        {/* 19. Editorial Blog Insights (Pure White with Minimal Sharp Framing) */}
-        <BlogSection />
+          <TestimonialsSection />
 
-        {/* 20. Dramatic Final CTA (Light Gradient: Pale Blue -> Soft Teal -> Warm White) */}
-        <FinalCTASection
+          <BlogSection />
+
+          <FinalCTASection
+            onOpenBooking={() => handleOpenBooking()}
+            onCallChamber={handleContactDoctor}
+          />
+        </main>
+
+        {/* Medical Practice Footer */}
+        <Footer
           onOpenBooking={() => handleOpenBooking()}
-          onCallChamber={handleContactDoctor}
+          onOpenWordPressTheme={() => setWpModalOpen(true)}
         />
-      </main>
 
-      {/* 21. Comprehensive Medical Practice Footer (#EEF2F1 Light Tone) */}
-      <Footer
-        onOpenBooking={() => handleOpenBooking()}
-        onOpenWordPressTheme={() => setWpModalOpen(true)}
-      />
+        {/* Persistent Mobile Quick Action Bar */}
+        <MobileBottomBar onOpenBooking={() => handleOpenBooking()} />
 
-      {/* 25. Persistent Mobile Quick Action Bar (Light Glass) */}
-      <MobileBottomBar onOpenBooking={() => handleOpenBooking()} />
+        {/* Dedicated Appointment Booking Modal */}
+        <AppointmentModal
+          isOpen={bookingModalOpen}
+          onClose={handleCloseBooking}
+          initialChamber={bookingChamber}
+          initialReason={bookingReason}
+        />
 
-      {/* 15. Dedicated Appointment Booking Modal (Pure White / Charcoal) */}
-      <AppointmentModal
-        isOpen={bookingModalOpen}
-        onClose={handleCloseBooking}
-        initialChamber={bookingChamber}
-        initialReason={bookingReason}
-      />
+        {/* Direct WordPress Theme Install Modal */}
+        <WordPressThemeModal
+          isOpen={wpModalOpen}
+          onClose={() => setWpModalOpen(false)}
+        />
 
-      {/* Direct WordPress Theme Install Modal */}
-      <WordPressThemeModal
-        isOpen={wpModalOpen}
-        onClose={() => setWpModalOpen(false)}
-      />
+        {/* Copy-Paste HTML Blocks Modal */}
+        <HtmlBlocksModal
+          isOpen={htmlBlocksModalOpen}
+          onClose={() => setHtmlBlocksModalOpen(false)}
+        />
 
-    </div>
+      </div>
+    </LanguageProvider>
   );
 }

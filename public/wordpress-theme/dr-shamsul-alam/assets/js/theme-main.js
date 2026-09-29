@@ -10,6 +10,162 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
+    // 0. Language Switcher (ENG / বাংলা)
+    const langDict = {
+        en: {
+            brandName: 'DR. SHAMSUL ALAM',
+            brandSub: 'Pain Medicine Specialist',
+            navAbout: 'About',
+            navExpertise: 'Expertise',
+            navTreatments: 'Treatments',
+            navChambers: 'Chambers',
+            navEducation: 'Patient Guide',
+            navInsights: 'Insights',
+            bookApt: 'BOOK APPOINTMENT',
+            heroBadge: 'PAIN MEDICINE SPECIALIST',
+            heroTitle: 'DR. SHAMSUL ALAM',
+            heroSubtitle: 'Helping patients understand, manage and move beyond persistent pain.',
+            heroDesc: 'Providing evidence-based diagnostic clarity and targeted image-guided interventional therapies for complex spinal, nerve, and joint pain.',
+            contactDoc: 'CONTACT DOCTOR',
+            expVal: '15+ Years',
+            expLabel: 'Clinical Experience',
+            precisionVal: 'Precision Guidance',
+            precisionLabel: 'C-Arm & Ultrasound',
+            focusVal: 'Targeted Care',
+            focusLabel: 'Spine & Nerve Focus',
+            trust1Title: '15+ Years Experience',
+            trust1Desc: 'Dedicated practice in advanced multidisciplinary pain diagnosis and precision interventional procedures.',
+            trust2Title: 'Precision Image Guidance',
+            trust2Desc: 'Targeted C-Arm fluoroscopy and high-resolution ultrasound for sub-millimeter needle accuracy.',
+            trust3Title: 'Evidence-Based Protocols',
+            trust3Desc: 'Non-surgical interventions adhering to international pain medicine guidelines (WIP, SIS, APS).',
+            trust4Title: 'Compassionate Patient-First',
+            trust4Desc: 'Individualized treatment mapping prioritizing functional mobility and root-cause relief.'
+        },
+        bn: {
+            brandName: 'ডাঃ শামসুল আলম',
+            brandSub: 'পেইন মেডিসিন ও ইন্টারভেনশনাল বিশেষজ্ঞ',
+            navAbout: 'ডাক্তার পরিচিতি',
+            navExpertise: 'ব্যথার চিকিৎসাসমূহ',
+            navTreatments: 'চিকিৎসা পদ্ধতি',
+            navChambers: 'চেম্বার ও সময়সূচী',
+            navEducation: 'রোগীদের গাইড',
+            navInsights: 'মেডিকেল পরামর্শ',
+            bookApt: 'অ্যাপয়েন্টমেন্ট নিন',
+            heroBadge: 'ব্যথামুক্ত জীবনের সুনির্দিষ্ট সমাধান',
+            heroTitle: 'ডাঃ শামসুল আলম',
+            heroSubtitle: 'দীর্ঘমেয়াদী ও জটিল ব্যথা সঠিকভাবে নির্ণয় ও আধুনিক পদ্ধতিতে নিরাময়ে নিবেদিত।',
+            heroDesc: 'মেরুদণ্ড, কোমর, ঘাড়, হাঁটু ও স্নায়ুজনিত ব্যথায় সি-আর্ম ও আল্ট্রাসাউন্ড গাইডেড সুনির্দিষ্ট অত্যাধুনিক ইন্টারভেনশনাল চিকিৎসাসেবা প্রদান।',
+            contactDoc: 'চেম্বারের সাথে যোগাযোগ',
+            expVal: '১৫+ বছর',
+            expLabel: 'ক্লিনিক্যাল অভিজ্ঞতা',
+            precisionVal: 'ইমেজ গাইডেন্স',
+            precisionLabel: 'সি-আর্ম ও আল্ট্রাসাউন্ড',
+            focusVal: 'সুনির্দিষ্ট চিকিৎসা',
+            focusLabel: 'মেরুদণ্ড ও স্নায়ুর যত্ন',
+            trust1Title: '১৫+ বছরের অভিজ্ঞতা',
+            trust1Desc: 'উন্নত মাল্টিডিসিপ্লিনারি ব্যথা নির্ণয় ও আধুনিক নন-সার্জিক্যাল পদ্ধতিতে সফল চিকিৎসার দীর্ঘ অভিজ্ঞতা।',
+            trust2Title: 'প্রিসিশন ইমেজ গাইডেন্স',
+            trust2Desc: 'সি-আর্ম ফ্লুরোস্কোপি ও হাই-রেজোলিউশন আল্ট্রাসাউন্ডের মাধ্যমে নিখুঁতভাবে ব্যথার উৎসে চিকিৎসা।',
+            trust3Title: 'আন্তর্জাতিক স্বীকৃত প্রটোকল',
+            trust3Desc: 'আন্তর্জাতিক পেইন মেডিসিন গাইডলাইন (WIP, SIS) অনুসরণে অপারেশনের বিকল্প নিরাপদ চিকিৎসাসেবা।',
+            trust4Title: 'রোগী-বান্ধব আন্তরিক সেবা',
+            trust4Desc: 'প্রতিটি রোগীর সমস্যা আলাদাভাবে শুনে দীর্ঘমেয়াদী সুস্থতা ও কর্মক্ষমতা ফিরিয়ে আনার পরিকল্পনা।'
+        }
+    };
+
+    function applyLanguage(lang) {
+        localStorage.setItem('dr_shamsul_theme_lang', lang);
+        document.documentElement.lang = lang;
+
+        // Update active class on all switcher buttons
+        document.querySelectorAll('.lang-btn, .lang-btn-mob').forEach(function (btn) {
+            btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+        });
+
+        const d = langDict[lang] || langDict.en;
+
+        // Update Header brand & links
+        const brandName = document.querySelector('.brand-name');
+        if (brandName) brandName.innerText = d.brandName;
+        const brandSub = document.querySelector('.brand-sub');
+        if (brandSub) brandSub.innerText = d.brandSub;
+
+        const navLinks = document.querySelectorAll('.desktop-nav .nav-link');
+        if (navLinks.length >= 6) {
+            navLinks[0].innerText = d.navAbout;
+            navLinks[1].innerText = d.navExpertise;
+            navLinks[2].innerText = d.navTreatments;
+            navLinks[3].innerText = d.navChambers;
+            navLinks[4].innerText = d.navEducation;
+            navLinks[5].innerText = d.navInsights;
+        }
+
+        const mobLinks = document.querySelectorAll('.mobile-drawer .mobile-link');
+        if (mobLinks.length >= 6) {
+            mobLinks[0].innerText = d.navAbout;
+            mobLinks[1].innerText = d.navExpertise;
+            mobLinks[2].innerText = d.navTreatments;
+            mobLinks[3].innerText = d.navChambers;
+            mobLinks[4].innerText = d.navEducation;
+            mobLinks[5].innerText = d.navInsights;
+        }
+
+        // Update Buttons
+        document.querySelectorAll('[data-i18n="book_apt"], .open-booking-modal span').forEach(function (el) {
+            if (el.innerText.trim().toUpperCase().includes('BOOK') || el.innerText.includes('অ্যাপয়েন্টমেন্ট')) {
+                el.innerText = d.bookApt;
+            }
+        });
+
+        // Update Hero elements
+        const heroBadge = document.querySelector('.hero-badge .badge-text');
+        if (heroBadge) heroBadge.innerText = d.heroBadge;
+        const heroTitle = document.querySelector('.hero-title');
+        if (heroTitle) heroTitle.innerText = d.heroTitle;
+        const heroSubtitle = document.querySelector('.hero-subtitle');
+        if (heroSubtitle) heroSubtitle.innerText = d.heroSubtitle;
+        const heroDesc = document.querySelector('.hero-description');
+        if (heroDesc) heroDesc.innerText = d.heroDesc;
+
+        const heroMetrics = document.querySelectorAll('.hero-micro-metrics .micro-metric');
+        if (heroMetrics.length >= 3) {
+            heroMetrics[0].querySelector('.metric-val').innerText = d.expVal;
+            heroMetrics[0].querySelector('.metric-label').innerText = d.expLabel;
+            heroMetrics[1].querySelector('.metric-val').innerText = d.precisionVal;
+            heroMetrics[1].querySelector('.metric-label').innerText = d.precisionLabel;
+            heroMetrics[2].querySelector('.metric-val').innerText = d.focusVal;
+            heroMetrics[2].querySelector('.metric-label').innerText = d.focusLabel;
+        }
+
+        // Update Trust Cards
+        const trustCards = document.querySelectorAll('.trust-card');
+        if (trustCards.length >= 4) {
+            trustCards[0].querySelector('.trust-title').innerText = d.trust1Title;
+            trustCards[0].querySelector('.trust-desc').innerText = d.trust1Desc;
+            trustCards[1].querySelector('.trust-title').innerText = d.trust2Title;
+            trustCards[1].querySelector('.trust-desc').innerText = d.trust2Desc;
+            trustCards[2].querySelector('.trust-title').innerText = d.trust3Title;
+            trustCards[2].querySelector('.trust-desc').innerText = d.trust3Desc;
+            trustCards[3].querySelector('.trust-title').innerText = d.trust4Title;
+            trustCards[3].querySelector('.trust-desc').innerText = d.trust4Desc;
+        }
+    }
+
+    // Attach click listeners to language buttons
+    document.querySelectorAll('.lang-btn, .lang-btn-mob').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            const chosenLang = this.getAttribute('data-lang');
+            applyLanguage(chosenLang);
+        });
+    });
+
+    // Check saved language on load
+    const savedLang = localStorage.getItem('dr_shamsul_theme_lang') || 'en';
+    if (savedLang === 'bn') {
+        applyLanguage('bn');
+    }
+
     // 1. Initialize Lucide Icons
     if (typeof lucide !== 'undefined' && lucide.createIcons) {
         lucide.createIcons();
@@ -183,11 +339,22 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (feedbackBox) {
                         feedbackBox.style.display = 'block';
                         feedbackBox.className = 'booking-feedback ' + (data.success ? 'success' : 'error');
-                        feedbackBox.innerText = data.data ? data.data.message : 'Consultation inquiry recorded.';
+                        if (data.success && data.data && data.data.serial_code) {
+                            const waText = encodeURIComponent(`Hello Dr. Shamsul Alam Chamber Desk, I submitted an appointment request on your website. Serial: ${data.data.serial_code}, Patient: ${data.data.patient}, Chamber: ${data.data.chamber}.`);
+                            const waLink = `https://wa.me/8801716840850?text=${waText}`;
+                            feedbackBox.innerHTML = `
+                                <div style="font-weight:700; margin-bottom: 4px;">✅ ${data.data.message}</div>
+                                <div style="font-size:12px; margin-bottom: 10px;">Booking Serial: <strong>${data.data.serial_code}</strong></div>
+                                <a href="${waLink}" target="_blank" style="display:inline-block; background:#25D366; color:#ffffff; font-weight:700; font-size:12px; padding:6px 12px; border-radius:4px; text-decoration:none;">
+                                    💬 Send Confirmation on WhatsApp
+                                </a>
+                            `;
+                        } else {
+                            feedbackBox.innerText = data.data ? data.data.message : 'Consultation inquiry recorded.';
+                        }
                     }
                     if (data.success) {
                         bookingForm.reset();
-                        setTimeout(closeModal, 3500);
                     }
                 })
                 .catch(() => {
@@ -208,10 +375,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (feedbackBox) {
                     feedbackBox.style.display = 'block';
                     feedbackBox.className = 'booking-feedback success';
-                    feedbackBox.innerText = 'Appointment request received! Our clinic desk will call you to confirm your slot time.';
+                    feedbackBox.innerHTML = `
+                        <div style="font-weight:700;">✅ Appointment request recorded!</div>
+                        <div style="font-size:12px; margin-top:4px;">Our patient coordinator will contact you shortly to confirm your consultation time.</div>
+                    `;
                 }
                 bookingForm.reset();
-                setTimeout(closeModal, 3000);
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.innerText = 'SUBMIT APPOINTMENT REQUEST';

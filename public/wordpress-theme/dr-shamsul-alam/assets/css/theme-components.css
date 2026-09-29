@@ -14,9 +14,9 @@ Deep Charcoal (#18212B), Soft Teal (#3D9C98), Sky Blue (#7BAFC4)
 
 /* Typography Base */
 h1, h2, h3, h4, h5 {
-  color: var(--text-primary);
-  font-family: 'Plus Jakarta Sans', var(--font-sans);
-  font-weight: 700;
+  color: var(--text-primary) !important;
+  font-family: 'Plus Jakarta Sans', var(--font-sans) !important;
+  font-weight: 700 !important;
   line-height: 1.25;
   margin: 0 0 16px 0;
   letter-spacing: -0.02em;
@@ -24,6 +24,7 @@ h1, h2, h3, h4, h5 {
 
 p {
   color: var(--text-secondary);
+  font-family: 'Inter', var(--font-sans) !important;
   margin: 0 0 16px 0;
   line-height: 1.7;
 }
@@ -171,7 +172,67 @@ p {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
+}
+
+/* Language Switcher Pill */
+.lang-switch-pill {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 9999px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.lang-btn {
+  font-family: inherit;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lang-btn:hover {
+  color: var(--text-primary);
+}
+
+.lang-btn.active {
+  background-color: var(--accent-teal);
+  color: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(61, 156, 152, 0.3);
+}
+
+.mobile-lang-switch {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.lang-btn-mob {
+  border: 1px solid var(--border-light);
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-size: 0.875rem;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+.lang-btn-mob.active {
+  background-color: var(--accent-teal);
+  color: #FFFFFF;
+  border-color: var(--accent-teal);
 }
 
 .mobile-toggle {

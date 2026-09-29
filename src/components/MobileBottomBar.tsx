@@ -13,7 +13,7 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({ onOpenBooking 
         
         {/* Call Chamber */}
         <a
-          href={`tel:${DOCTOR_PROFILE.phonePrimary}`}
+          href="tel:+8801716840850"
           className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-lg bg-[#FAFAF7] border border-[#E2E7E8] text-[#18212B] hover:bg-[#F3F5F2] transition-colors"
         >
           <Phone className="w-4 h-4 text-[#3D9C98] mb-0.5" />
@@ -22,7 +22,7 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({ onOpenBooking 
 
         {/* WhatsApp Consultation */}
         <a
-          href={`https://wa.me/${DOCTOR_PROFILE.whatsappNumber}?text=Hello%20Dr.%20Shamsul%20Alam%20team,%20I%20would%20like%20to%20inquire%20about%20an%20appointment.`}
+          href="https://wa.me/8801716840850?text=Hello%20Dr.%20Shamsul%20Alam%20team,%20I%20would%20like%20to%20inquire%20about%20an%20appointment."
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-lg bg-[#E7F2F5] border border-[#7BAFC4]/40 text-[#3D9C98] hover:bg-[#3D9C98] hover:text-white transition-colors"

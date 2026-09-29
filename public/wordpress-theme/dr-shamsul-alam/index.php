@@ -78,50 +78,25 @@ get_header();
                     </div>
                 </div>
                 <div class="portrait-card">
-                    <!-- Layered Studio Lighting & Geometric Mesh SVG -->
-                    <div class="portrait-art">
-                        <svg viewBox="0 0 400 480" class="portrait-svg" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Doctor Official Photograph -->
+                    <div class="portrait-art" style="overflow: hidden; position: relative;">
+                        <img 
+                            src="https://sazratulhub.com/wp-content/uploads/2026/09/doctor_portrait.webp" 
+                            alt="<?php esc_attr_e('Dr. Shamsul Alam - Pain Medicine Specialist', 'dr-shamsul-alam'); ?>" 
+                            class="portrait-img"
+                            style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;"
+                            onerror="this.style.display='none'; document.getElementById('svg-doctor-fallback').style.display='block';"
+                        />
+                        <div class="portrait-img-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,33,43,0.65) 0%, rgba(24,33,43,0.1) 40%, transparent 100%); pointer-events: none;"></div>
+                        <svg id="svg-doctor-fallback" viewBox="0 0 400 480" class="portrait-svg" xmlns="http://www.w3.org/2000/svg" style="display: none;">
                             <defs>
                                 <radialGradient id="halo-light" cx="50%" cy="40%" r="55%">
                                     <stop offset="0%" stop-color="#E7F2F5" stop-opacity="0.9"/>
                                     <stop offset="60%" stop-color="#F3F5F2" stop-opacity="0.5"/>
                                     <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
                                 </radialGradient>
-                                <linearGradient id="coat-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#FFFFFF"/>
-                                    <stop offset="100%" stop-color="#F0F4F5"/>
-                                </linearGradient>
-                                <linearGradient id="teal-accent-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" stop-color="#3D9C98"/>
-                                    <stop offset="100%" stop-color="#7BAFC4"/>
-                                </linearGradient>
                             </defs>
-                            <!-- Ambient Glow Circle -->
-                            <circle cx="200" cy="200" r="170" fill="url(#halo-light)" class="animated-halo" />
-                            
-                            <!-- Anatomical Grid Lattice Lines -->
-                            <line x1="50" y1="120" x2="350" y2="120" stroke="#E2E7E8" stroke-width="0.8" stroke-dasharray="3 4"/>
-                            <line x1="50" y1="200" x2="350" y2="200" stroke="#E2E7E8" stroke-width="0.8" stroke-dasharray="3 4"/>
-                            <line x1="50" y1="280" x2="350" y2="280" stroke="#E2E7E8" stroke-width="0.8" stroke-dasharray="3 4"/>
-                            <line x1="200" y1="50" x2="200" y2="350" stroke="#E2E7E8" stroke-width="0.8" stroke-dasharray="3 4"/>
-
-                            <!-- Doctor Clinical Figure Silhouette -->
-                            <!-- Shoulders & Coat -->
-                            <path d="M 90 480 L 110 320 Q 150 290 200 290 Q 250 290 290 320 L 310 480 Z" fill="url(#coat-grad)" stroke="#E2E7E8" stroke-width="1.5" />
-                            <!-- Tie & Inner Scrub -->
-                            <polygon points="190,290 210,290 205,370 195,370" fill="url(#teal-accent-grad)" />
-                            <!-- Stethoscope Accent -->
-                            <path d="M 160 300 Q 160 360 200 375 Q 240 360 240 300" fill="none" stroke="#7BAFC4" stroke-width="3" stroke-linecap="round"/>
-                            <!-- Head & Neck -->
-                            <path d="M 185 285 L 185 240 L 215 240 L 215 285 Z" fill="#F8E5D8" />
-                            <ellipse cx="200" cy="180" rx="55" ry="68" fill="#F5DCB7" />
-                            <!-- Hair & Glasses / Precision Features -->
-                            <path d="M 142 160 Q 200 115 258 160 Q 258 130 200 120 Q 142 130 142 160 Z" fill="#2C3539" />
-                            <!-- Wireframe Spectacles -->
-                            <rect x="160" y="165" width="32" height="22" rx="4" fill="none" stroke="#18212B" stroke-width="1.8"/>
-                            <rect x="208" y="165" width="32" height="22" rx="4" fill="none" stroke="#18212B" stroke-width="1.8"/>
-                            <line x1="192" y1="174" x2="208" y2="174" stroke="#18212B" stroke-width="1.8"/>
-                            <path d="M 180 218 Q 200 228 220 218" fill="none" stroke="#8C6239" stroke-width="1.5" stroke-linecap="round"/>
+                            <circle cx="200" cy="200" r="170" fill="url(#halo-light)" />
                         </svg>
                     </div>
 
@@ -555,12 +530,15 @@ get_header();
                     </div>
                     <div class="chamber-detail-row">
                         <i data-lucide="phone" class="text-teal"></i>
-                        <span><strong><?php _e('Serial Desk:', 'dr-shamsul-alam'); ?></strong> +880 1711 000001</span>
+                        <span><strong><?php _e('Serial Desk:', 'dr-shamsul-alam'); ?></strong> <a href="tel:+8801716840850" style="color:inherit; text-decoration:none;">+880 1716 840850</a></span>
                     </div>
-                    <div class="chamber-card-cta">
+                    <div class="chamber-card-cta" style="display:flex; flex-direction:column; gap:8px;">
                         <button type="button" class="btn btn-primary btn-block open-booking-modal" data-chamber="Dhanmondi - Shamsul Pain & Spine Centre">
                             <?php _e('BOOK DHANMONDI APPOINTMENT', 'dr-shamsul-alam'); ?>
                         </button>
+                        <a href="https://wa.me/8801716840850?text=Hello%20Dr.%20Shamsul%20Alam%20team,%20I%20would%20like%20to%20inquire%20about%20Dhanmondi%20chamber%20serial." target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-block" style="text-align:center; font-size:12px; padding:8px 12px; color:#25D366; border-color:#25D366;">
+                            💬 <?php _e('Chat on WhatsApp', 'dr-shamsul-alam'); ?>
+                        </a>
                     </div>
                 </div>
 
@@ -579,12 +557,15 @@ get_header();
                     </div>
                     <div class="chamber-detail-row">
                         <i data-lucide="phone" class="text-teal"></i>
-                        <span><strong><?php _e('Serial Desk:', 'dr-shamsul-alam'); ?></strong> +880 1711 000002</span>
+                        <span><strong><?php _e('Serial Desk:', 'dr-shamsul-alam'); ?></strong> <a href="tel:+8801716840850" style="color:inherit; text-decoration:none;">+880 1716 840850</a></span>
                     </div>
-                    <div class="chamber-card-cta">
+                    <div class="chamber-card-cta" style="display:flex; flex-direction:column; gap:8px;">
                         <button type="button" class="btn btn-primary btn-block open-booking-modal" data-chamber="Panthapath - Advanced Pain Care Centre">
                             <?php _e('BOOK PANTHAPATH APPOINTMENT', 'dr-shamsul-alam'); ?>
                         </button>
+                        <a href="https://wa.me/8801716840850?text=Hello%20Dr.%20Shamsul%20Alam%20team,%20I%20would%20like%20to%20inquire%20about%20Panthapath%20chamber%20serial." target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-block" style="text-align:center; font-size:12px; padding:8px 12px; color:#25D366; border-color:#25D366;">
+                            💬 <?php _e('Chat on WhatsApp', 'dr-shamsul-alam'); ?>
+                        </a>
                     </div>
                 </div>
             </div>

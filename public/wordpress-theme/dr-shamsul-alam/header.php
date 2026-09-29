@@ -35,11 +35,17 @@
             <a href="#insights" class="nav-link"><?php _e('Insights', 'dr-shamsul-alam'); ?></a>
         </nav>
 
-        <!-- CTA & Mobile Toggle -->
+        <!-- CTA, Language Switcher & Mobile Toggle -->
         <div class="nav-actions">
+            <!-- Language Switcher Pill -->
+            <div class="lang-switch-pill" id="theme-lang-toggle">
+                <button type="button" class="lang-btn active" data-lang="en">ENG</button>
+                <button type="button" class="lang-btn" data-lang="bn">বাং</button>
+            </div>
+
             <button type="button" class="btn btn-primary open-booking-modal" data-chamber="" data-reason="">
                 <i data-lucide="calendar" class="icon-inline"></i>
-                <span><?php _e('BOOK APPOINTMENT', 'dr-shamsul-alam'); ?></span>
+                <span data-i18n="book_apt"><?php _e('BOOK APPOINTMENT', 'dr-shamsul-alam'); ?></span>
             </button>
             <button type="button" class="mobile-toggle" id="mobile-menu-trigger" aria-label="<?php esc_attr_e('Toggle Menu', 'dr-shamsul-alam'); ?>">
                 <i data-lucide="menu" id="toggle-icon-open"></i>
@@ -50,6 +56,10 @@
 
     <!-- Mobile Drawer Menu -->
     <div id="mobile-drawer" class="mobile-drawer">
+        <div class="mobile-lang-switch">
+            <button type="button" class="lang-btn-mob active" data-lang="en">English</button>
+            <button type="button" class="lang-btn-mob" data-lang="bn">বাংলা</button>
+        </div>
         <div class="mobile-nav-links">
             <a href="#about" class="mobile-link"><?php _e('About Doctor', 'dr-shamsul-alam'); ?></a>
             <a href="#expertise" class="mobile-link"><?php _e('Conditions Treated', 'dr-shamsul-alam'); ?></a>

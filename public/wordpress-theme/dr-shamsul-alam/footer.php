@@ -45,25 +45,26 @@
                     <strong><?php _e('Dhanmondi Practice', 'dr-shamsul-alam'); ?></strong>
                     <p><?php _e('Shamsul Pain & Spine Centre', 'dr-shamsul-alam'); ?></p>
                     <p class="text-muted"><?php _e('Sat, Mon, Wed · 6:00 PM – 9:00 PM', 'dr-shamsul-alam'); ?></p>
-                    <a href="tel:+8801711000001" class="footer-phone"><i data-lucide="phone" class="icon-tiny"></i> +880 1711 000001</a>
+                    <a href="tel:+8801716840850" class="footer-phone"><i data-lucide="phone" class="icon-tiny"></i> +880 1716 840850</a>
                 </div>
                 <div class="footer-chamber-card">
                     <strong><?php _e('Panthapath Practice', 'dr-shamsul-alam'); ?></strong>
                     <p><?php _e('Advanced Pain Care Centre', 'dr-shamsul-alam'); ?></p>
                     <p class="text-muted"><?php _e('Sun, Tue, Thu · 3:00 PM – 8:00 PM', 'dr-shamsul-alam'); ?></p>
-                    <a href="tel:+8801711000002" class="footer-phone"><i data-lucide="phone" class="icon-tiny"></i> +880 1711 000002</a>
+                    <a href="tel:+8801716840850" class="footer-phone"><i data-lucide="phone" class="icon-tiny"></i> +880 1716 840850</a>
                 </div>
             </div>
 
             <!-- Col 4: Rapid Booking CTA -->
             <div class="footer-col">
-                <h4 class="footer-heading"><?php _e('CONSULTATION', 'dr-shamsul-alam'); ?></h4>
+                <h4 class="footer-heading"><?php _e('CONSULTATION & WHATSAPP', 'dr-shamsul-alam'); ?></h4>
                 <p class="footer-cta-text">
-                    <?php _e('Early interventional assessment helps identify pain generators before chronic sensitization develops.', 'dr-shamsul-alam'); ?>
+                    <?php _e('Direct hotline and WhatsApp serial desk available for priority scheduling.', 'dr-shamsul-alam'); ?>
                 </p>
-                <button type="button" class="btn btn-primary btn-block open-booking-modal" style="margin-top:16px;">
-                    <?php _e('SCHEDULE APPOINTMENT', 'dr-shamsul-alam'); ?>
-                </button>
+                <a href="https://wa.me/8801716840850?text=Hello%20Dr.%20Shamsul%20Alam%20team,%20I%20would%20like%20to%20book%20an%20appointment." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block" style="margin-top:16px; display:inline-flex; align-items:center; justify-content:center; gap:8px;">
+                    <i data-lucide="message-circle" class="icon-tiny"></i>
+                    <span><?php _e('WHATSAPP (+880 1716 840850)', 'dr-shamsul-alam'); ?></span>
+                </a>
             </div>
         </div>
 
@@ -84,11 +85,11 @@
 <!-- Persistent Mobile Bottom Quick Action Bar -->
 <div class="mobile-bottom-bar" id="mobile-bottom-bar">
     <div class="mobile-bar-actions">
-        <a href="tel:+8801700000000" class="mobile-bar-btn">
+        <a href="tel:+8801716840850" class="mobile-bar-btn">
             <i data-lucide="phone" class="icon-sm"></i>
             <span><?php _e('Call', 'dr-shamsul-alam'); ?></span>
         </a>
-        <a href="https://wa.me/8801700000000" target="_blank" rel="noopener noreferrer" class="mobile-bar-btn">
+        <a href="https://wa.me/8801716840850?text=Hello%20Dr.%20Shamsul%20Alam%20team,%20I%20would%20like%20to%20inquire%20about%20an%20appointment." target="_blank" rel="noopener noreferrer" class="mobile-bar-btn">
             <i data-lucide="message-circle" class="icon-sm"></i>
             <span><?php _e('WhatsApp', 'dr-shamsul-alam'); ?></span>
         </a>

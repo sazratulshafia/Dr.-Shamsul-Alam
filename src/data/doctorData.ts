@@ -112,9 +112,10 @@ export const DOCTOR_PROFILE = {
     { value: "Multidisciplinary", label: "Care Model", description: "Integration with physical rehabilitation and medical therapy" },
     { value: "2", label: "Modern Chambers", description: "Dhanmondi and Panthapath practice locations" }
   ],
-  phonePrimary: "+880 1700 000000",
-  whatsappNumber: "+8801700000000",
-  emailOfficial: "care@drshamsulalam.com"
+  phonePrimary: "+880 1716 840850",
+  whatsappNumber: "+8801716840850",
+  emailOfficial: "care@drshamsulalam.com",
+  photoUrl: "https://sazratulhub.com/wp-content/uploads/2026/09/doctor_portrait.webp"
 };
 
 export const CONDITIONS_LIST: Condition[] = [
@@ -343,8 +344,8 @@ export const CHAMBERS_LIST: Chamber[] = [
     days: "Saturday, Monday & Wednesday",
     timing: "6:00 PM – 9:00 PM",
     address: "House 42, Road 9/A, Dhanmondi R/A, Dhaka 1209 (DEMO)",
-    phone: "+880 1711 000001",
-    whatsapp: "+8801711000001",
+    phone: "+880 1716 840850",
+    whatsapp: "+8801716840850",
     mapCoords: { lat: 23.7465, lng: 90.3760 },
     landmark: "Near Dhanmondi Lake & Road 9/A Medical Hub"
   },
@@ -355,8 +356,8 @@ export const CHAMBERS_LIST: Chamber[] = [
     days: "Sunday, Tuesday & Thursday",
     timing: "3:00 PM – 8:00 PM",
     address: "Suite 502, Green Care Tower, 68 Panthapath, Dhaka 1205 (DEMO)",
-    phone: "+880 1711 000002",
-    whatsapp: "+8801711000002",
+    phone: "+880 1716 840850",
+    whatsapp: "+8801716840850",
     mapCoords: { lat: 23.7512, lng: 90.3881 },
     landmark: "Opposite to Square Hospital Intersection"
   }

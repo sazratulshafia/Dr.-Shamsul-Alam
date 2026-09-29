@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dr. Shamsul Alam – Pain Medicine Specialist | Precision in Pain Care</title>
     <meta name="description" content="Official personal medical practice website for Dr. Shamsul Alam, Specialist in Pain Medicine & Interventional Pain Management. Helping patients understand, manage, and move beyond persistent pain." />
+
+    <!-- Window.fetch getter/setter protection safeguard -->
+    <script>
+      (function() {
+        try {
+          var originalFetch = window.fetch;
+          var fetchDescriptor = Object.getOwnPropertyDescriptor(window, 'fetch') || 
+                                Object.getOwnPropertyDescriptor(Object.getPrototypeOf(window), 'fetch');
+          if (fetchDescriptor && !fetchDescriptor.writable && !fetchDescriptor.set) {
+            var currentFetch = originalFetch;
+            Object.defineProperty(window, 'fetch', {
+              get: function() { return currentFetch; },
+              set: function(fn) { currentFetch = fn; },
+              configurable: true,
+              enumerable: true
+            });
+          }
+        } catch (e) {
+          // Fallback if defineProperty fails
+        }
+      })();
+    </script>
     
     <!-- OpenGraph Tags -->
     <meta property="og:type" content="website" />

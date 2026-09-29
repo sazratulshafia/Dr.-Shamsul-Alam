@@ -1,32 +1,35 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Target, Compass, Award, HeartHandshake } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export const TrustSection: React.FC = () => {
+  const { lang, t } = useLanguage();
+
   const pillars = [
     {
       icon: Award,
-      badge: "DEMO CLINICAL TENURE",
-      headline: "15+ Years Experience",
-      subtext: "Dedicated clinical focus in assessing and managing acute, chronic, and post-surgical pain conditions."
-    },
-    {
-      icon: Compass,
-      badge: "PRIMARY DISCIPLINE",
-      headline: "Pain Medicine Specialist",
-      subtext: "Comprehensive non-surgical diagnostic algorithms isolating the biological generator of spinal and nerve pain."
+      badge: lang === 'bn' ? "ক্লিনিক্যাল অভিজ্ঞতা" : "CLINICAL TENURE",
+      headline: t('trust.exp_title'),
+      subtext: t('trust.exp_desc')
     },
     {
       icon: Target,
-      badge: "ADVANCED PROCEDURES",
-      headline: "Interventional Pain Care",
-      subtext: "Sub-millimeter fluoroscopic and ultrasound-guided nerve blocks, epidurals, and radiofrequency neurotomy."
+      badge: lang === 'bn' ? "উন্নত প্রযুক্তি" : "ADVANCED PROCEDURES",
+      headline: t('trust.guidance_title'),
+      subtext: t('trust.guidance_desc')
+    },
+    {
+      icon: Compass,
+      badge: lang === 'bn' ? "স্বীকৃত মানদণ্ড" : "GLOBAL STANDARDS",
+      headline: t('trust.evidence_title'),
+      subtext: t('trust.evidence_desc')
     },
     {
       icon: HeartHandshake,
-      badge: "CLINICAL ETHIC",
-      headline: "Personalized Care",
-      subtext: "Tailored treatment strategies integrating multimodal medications, restorative physical therapy, and lifestyle guidance."
+      badge: lang === 'bn' ? "রোগীর যত্ন" : "PATIENT ETHIC",
+      headline: t('trust.patient_title'),
+      subtext: t('trust.patient_desc')
     }
   ];
 
@@ -38,9 +41,13 @@ export const TrustSection: React.FC = () => {
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-[#E2E7E8] text-xs font-mono text-[#5E6872]">
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#3D9C98]" />
-            <span className="text-[#18212B] font-semibold tracking-wider">FOUNDATIONAL PILLARS</span>
+            <span className="text-[#18212B] font-semibold tracking-wider">
+              {lang === 'bn' ? 'চিকিৎসার মূল ভিত্তি' : 'FOUNDATIONAL PILLARS'}
+            </span>
           </div>
-          <div className="text-[#5E6872]">EVIDENCE-BASED MEDICAL STANDARD · DEMO PRACTICE</div>
+          <div className="text-[#5E6872]">
+            {lang === 'bn' ? 'আন্তর্জাতিক পেইন মেডিসিন স্ট্যান্ডার্ড' : 'EVIDENCE-BASED MEDICAL STANDARD'}
+          </div>
         </div>
 
         {/* 4 Pillars Grid */}

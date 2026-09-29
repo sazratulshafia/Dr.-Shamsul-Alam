@@ -191,11 +191,74 @@ function dr_shamsul_register_custom_post_types() {
         'supports'      => ['title', 'editor', 'custom-fields'],
         'show_in_rest'  => true
     ]);
+
+    // 5. Patient Appointments Post Type (Stores all bookings inside WordPress Admin)
+    register_post_type('appointment', [
+        'labels' => [
+            'name'                  => __('Appointments', 'dr-shamsul-alam'),
+            'singular_name'         => __('Appointment', 'dr-shamsul-alam'),
+            'menu_name'             => __('Appointments', 'dr-shamsul-alam'),
+            'all_items'             => __('All Appointments', 'dr-shamsul-alam'),
+            'add_new_item'          => __('Add New Appointment', 'dr-shamsul-alam'),
+            'edit_item'             => __('View / Edit Appointment', 'dr-shamsul-alam'),
+            'search_items'          => __('Search Appointments', 'dr-shamsul-alam'),
+            'not_found'             => __('No appointments found', 'dr-shamsul-alam'),
+        ],
+        'public'            => false,
+        'show_ui'           => true,
+        'show_in_menu'      => true,
+        'menu_position'     => 6,
+        'menu_icon'         => 'dashicons-calendar-alt',
+        'capability_type'   => 'post',
+        'hierarchical'      => false,
+        'supports'          => ['title', 'editor', 'custom-fields'],
+        'show_in_rest'      => false
+    ]);
 }
 add_action('init', 'dr_shamsul_register_custom_post_types');
 
 /**
+ * Custom Columns in WordPress Admin for Appointments
+ */
+function dr_shamsul_appointment_columns($columns) {
+    return [
+        'cb'            => $columns['cb'],
+        'title'         => __('Patient Name / Serial', 'dr-shamsul-alam'),
+        'patient_phone' => __('Phone Number', 'dr-shamsul-alam'),
+        'chamber'       => __('Chamber', 'dr-shamsul-alam'),
+        'pref_date'     => __('Preferred Date', 'dr-shamsul-alam'),
+        'complaint'     => __('Pain Complaint / Reason', 'dr-shamsul-alam'),
+        'booking_time'  => __('Submission Time', 'dr-shamsul-alam'),
+    ];
+}
+add_filter('manage_appointment_posts_columns', 'dr_shamsul_appointment_columns');
+
+function dr_shamsul_appointment_custom_column($column, $post_id) {
+    switch ($column) {
+        case 'patient_phone':
+            $phone = get_post_meta($post_id, '_patient_phone', true);
+            echo $phone ? '<a href="tel:' . esc_attr($phone) . '"><strong>' . esc_html($phone) . '</strong></a>' : '—';
+            break;
+        case 'chamber':
+            echo esc_html(get_post_meta($post_id, '_chamber', true) ?: '—');
+            break;
+        case 'pref_date':
+            echo esc_html(get_post_meta($post_id, '_preferred_date', true) ?: '—');
+            break;
+        case 'complaint':
+            $complaint = get_post_meta($post_id, '_pain_complaint', true);
+            echo esc_html(wp_trim_words($complaint, 12, '...'));
+            break;
+        case 'booking_time':
+            echo get_the_date('d M Y, h:i A', $post_id);
+            break;
+    }
+}
+add_action('manage_appointment_posts_custom_column', 'dr_shamsul_appointment_custom_column', 10, 2);
+
+/**
  * Handle AJAX Booking Form Submissions
+ * Saves directly into WordPress Database under 'appointment' post type & Sends Email to sazratulfreedom@gmail.com
  */
 function dr_shamsul_handle_booking_submission() {
     check_ajax_referer('dr_shamsul_booking_nonce', 'security');
@@ -211,23 +274,99 @@ function dr_shamsul_handle_booking_submission() {
         wp_send_json_error(['message' => __('Please provide your name and contact phone number.', 'dr-shamsul-alam')]);
     }
 
-    // Save as demo consultation entry or email notification to chamber staff
-    $to = get_option('admin_email');
-    $subject = sprintf('[Appointment Request] %s - %s', $patient_name, $chamber_choice);
-    $body = "New Patient Consultation Booking Request:\n\n";
-    $body .= "Patient: {$patient_name}\n";
-    $body .= "Phone: {$patient_phone}\n";
-    $body .= "Email: {$patient_email}\n";
-    $body .= "Chamber: {$chamber_choice}\n";
-    $body .= "Preferred Date: {$preferred_date}\n";
-    $body .= "Pain Complaint: {$pain_complaint}\n";
-    $body .= "\nNote: Sent via Dr. Shamsul Alam Medical Digital Practice Website.";
+    $serial_code = 'ALAM-' . strtoupper(wp_generate_password(5, false, false));
+    $post_title = sprintf('%s - %s (%s)', $serial_code, $patient_name, $chamber_choice);
 
-    // Mail to admin (commented out or safe demo execution)
-    wp_mail($to, $subject, $body);
+    // 1. Save directly into WordPress Database
+    $post_id = wp_insert_post([
+        'post_title'   => $post_title,
+        'post_type'    => 'appointment',
+        'post_status'  => 'publish',
+        'post_content' => sprintf(
+            "Patient Name: %s\nPhone: %s\nEmail: %s\nChamber: %s\nPreferred Date: %s\n\nComplaint / Diagnosis:\n%s",
+            $patient_name,
+            $patient_phone,
+            $patient_email ?: 'Not provided',
+            $chamber_choice,
+            $preferred_date ?: 'Not specified',
+            $pain_complaint ?: 'None entered'
+        ),
+    ]);
+
+    if (!is_wp_error($post_id)) {
+        update_post_meta($post_id, '_serial_code', $serial_code);
+        update_post_meta($post_id, '_patient_name', $patient_name);
+        update_post_meta($post_id, '_patient_phone', $patient_phone);
+        update_post_meta($post_id, '_patient_email', $patient_email);
+        update_post_meta($post_id, '_chamber', $chamber_choice);
+        update_post_meta($post_id, '_preferred_date', $preferred_date);
+        update_post_meta($post_id, '_pain_complaint', $pain_complaint);
+    }
+
+    // 2. Send instant Email Notification to sazratulfreedom@gmail.com
+    $to = 'sazratulfreedom@gmail.com';
+    $subject = sprintf('🩺 [New Appointment - %s] %s (%s)', $serial_code, $patient_name, $chamber_choice);
+
+    $headers = [
+        'Content-Type: text/html; charset=UTF-8',
+        'From: Dr. Shamsul Alam Practice <care@' . wp_parse_url(home_url(), PHP_URL_HOST) . '>',
+    ];
+    if ($patient_email) {
+        $headers[] = 'Reply-To: ' . $patient_name . ' <' . $patient_email . '>';
+    }
+
+    $email_html = "
+    <div style='font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #FFFFFF; border: 1px solid #E2E7E8; border-radius: 12px; overflow: hidden; color: #18212B;'>
+        <div style='background: #3D9C98; padding: 24px 28px; color: #FFFFFF;'>
+            <h2 style='margin: 0; font-size: 20px; font-weight: 700;'>New Patient Appointment Request</h2>
+            <p style='margin: 6px 0 0 0; font-size: 13px; opacity: 0.9;'>Serial Reference: <strong>{$serial_code}</strong> · Dr. Shamsul Alam Medical Digital Practice</p>
+        </div>
+        <div style='padding: 28px;'>
+            <table style='width: 100%; border-collapse: collapse; font-size: 14px;'>
+                <tr>
+                    <td style='padding: 10px 0; color: #5E6872; width: 35%; border-bottom: 1px solid #EEF2F1;'>Patient Name</td>
+                    <td style='padding: 10px 0; font-weight: 700; border-bottom: 1px solid #EEF2F1;'>{$patient_name}</td>
+                </tr>
+                <tr>
+                    <td style='padding: 10px 0; color: #5E6872; border-bottom: 1px solid #EEF2F1;'>Contact Phone</td>
+                    <td style='padding: 10px 0; font-weight: 700; color: #3D9C98; border-bottom: 1px solid #EEF2F1;'><a href='tel:{$patient_phone}' style='color: #3D9C98; text-decoration: none;'>{$patient_phone}</a></td>
+                </tr>
+                <tr>
+                    <td style='padding: 10px 0; color: #5E6872; border-bottom: 1px solid #EEF2F1;'>Patient Email</td>
+                    <td style='padding: 10px 0; border-bottom: 1px solid #EEF2F1;'>" . ($patient_email ? esc_html($patient_email) : 'Not specified') . "</td>
+                </tr>
+                <tr>
+                    <td style='padding: 10px 0; color: #5E6872; border-bottom: 1px solid #EEF2F1;'>Chamber Location</td>
+                    <td style='padding: 10px 0; font-weight: 600; border-bottom: 1px solid #EEF2F1;'>{$chamber_choice}</td>
+                </tr>
+                <tr>
+                    <td style='padding: 10px 0; color: #5E6872; border-bottom: 1px solid #EEF2F1;'>Preferred Date</td>
+                    <td style='padding: 10px 0; border-bottom: 1px solid #EEF2F1;'>" . ($preferred_date ? esc_html($preferred_date) : 'Earliest Available') . "</td>
+                </tr>
+            </table>
+
+            <div style='margin-top: 20px; background: #F8FAFA; border: 1px solid #E2E7E8; border-radius: 8px; padding: 16px;'>
+                <div style='font-size: 11px; font-weight: 700; text-transform: uppercase; color: #8A95A0; letter-spacing: 0.05em; margin-bottom: 6px;'>Primary Pain Complaint / Reason</div>
+                <div style='font-size: 14px; line-height: 1.6; color: #18212B;'>" . nl2br(esc_html($pain_complaint ?: 'No specific complaint entered.')) . "</div>
+            </div>
+
+            <div style='margin-top: 24px; text-align: center;'>
+                <a href='" . admin_url('edit.php?post_type=appointment') . "' style='display: inline-block; background: #18212B; color: #FFFFFF; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;'>View in WordPress Admin Dashboard &rarr;</a>
+            </div>
+        </div>
+        <div style='background: #FAFAF7; padding: 14px 28px; border-top: 1px solid #E2E7E8; font-size: 12px; color: #8A95A0; text-align: center;'>
+            This request was received via the official practice website at sazratulhub.com
+        </div>
+    </div>";
+
+    @wp_mail($to, $subject, $email_html, $headers);
 
     wp_send_json_success([
-        'message' => __('Consultation request received successfully. Our patient coordinator will contact you to confirm timing.', 'dr-shamsul-alam')
+        'message'     => __('Your appointment request has been confirmed and saved! A notification has been dispatched to our clinic coordinator.', 'dr-shamsul-alam'),
+        'serial_code' => $serial_code,
+        'chamber'     => $chamber_choice,
+        'patient'     => $patient_name,
+        'phone'       => $patient_phone
     ]);
 }
 add_action('wp_ajax_dr_shamsul_booking', 'dr_shamsul_handle_booking_submission');

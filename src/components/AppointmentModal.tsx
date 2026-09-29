@@ -219,7 +219,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
 
               {/* Privacy & Fast Track Call */}
               <div className="flex items-center justify-between text-xs text-[#5E6872] pt-2 border-t border-[#E2E7E8]">
-                <span>Direct Hotline: <a href="tel:+8801700000000" className="text-[#3D9C98] hover:underline font-medium">+880 1700 000000</a></span>
+                <span>Direct Hotline: <a href="tel:+8801716840850" className="text-[#3D9C98] hover:underline font-medium">+880 1716 840850</a></span>
                 <span className="font-mono text-[#5E6872] text-[11px]">DEMO BOOKING</span>
               </div>
             </form>
@@ -279,7 +279,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
             {/* Direct WhatsApp Confirmation Button */}
             <div className="pt-2 flex flex-col sm:flex-row gap-3">
               <a
-                href={`https://wa.me/8801700000000?text=Hello%20Dr.%20Shamsul%20Alam%20Team,%20my%20name%20is%20${encodeURIComponent(fullName)}.%20I%20have%20booked%20an%20appointment%20with%20reference%20${bookingRef}%20for%20${encodeURIComponent(preferredChamber)}%20on%20${preferredDate}.`}
+                href={`https://wa.me/8801716840850?text=Hello%20Dr.%20Shamsul%20Alam%20Team,%20my%20name%20is%20${encodeURIComponent(fullName)}.%20I%20have%20booked%20an%20appointment%20with%20reference%20${bookingRef}%20for%20${encodeURIComponent(preferredChamber)}%20on%20${preferredDate}.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs tracking-wider uppercase transition-colors flex items-center justify-center gap-2 shadow-sm"
