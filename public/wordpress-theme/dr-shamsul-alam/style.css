@@ -1,0 +1,71 @@
+/*
+Theme Name: Dr. Shamsul Alam - Pain Medicine Specialist
+Theme URI: https://drshamsulalam.com
+Author: Dr. Shamsul Alam Medical Digital Practice
+Author URI: https://drshamsulalam.com
+Description: A bespoke, ultra-premium medical personal-brand WordPress theme for Dr. Shamsul Alam (Pain Medicine Specialist). Built with "Precision in Pain Care" light luxury medical editorial aesthetics, custom post types for conditions, treatments, chambers, FAQs, and publications, full responsive booking system, schema.org integration, and zero bloat.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: dr-shamsul-alam
+Tags: medical, doctor, clinic, healthcare, appointment, pain-medicine, editorial, accessibility-ready, custom-menu, featured-images
+*/
+
+:root {
+  --bg-primary: #FAFAF7;
+  --bg-secondary: #F3F5F2;
+  --bg-white: #FFFFFF;
+  --bg-pale-blue: #E7F2F5;
+  --text-primary: #18212B;
+  --text-secondary: #5E6872;
+  --text-muted: #8A95A0;
+  --accent-teal: #3D9C98;
+  --accent-teal-hover: #31827E;
+  --accent-sky: #7BAFC4;
+  --accent-champagne: #D8C6A0;
+  --border-light: #E2E7E8;
+  --border-subtle: #EEF2F1;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}

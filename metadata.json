@@ -1,0 +1,8 @@
+{
+  "name": "Dr. Shamsul Alam – Pain Medicine Specialist",
+  "description": "Premium personal medical website for Dr. Shamsul Alam, Specialist in Pain Medicine & Interventional Pain Management. Precision in Pain Care.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
